@@ -3,9 +3,9 @@
 <package format="3">
   <name>moveit2_scripts</name>
   <version>0.0.0</version>
-  <description>TODO: Package description</description>
-  <maintainer email="user@todo.todo">user</maintainer>
-  <license>TODO: License declaration</license>
+  <description>MoveIt2 Scripts for UR3E manipulation</description>
+  <maintainer email="dmitri.manajev@protonmail.com">Dmitri Manajev</maintainer>
+  <license>MIT</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
@@ -18,6 +18,7 @@
   <depend>geometric_shapes</depend>
   <depend>control_msgs</depend>
   <depend>moveit_msgs</depend>
+  <depend>detection_interfaces</depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
