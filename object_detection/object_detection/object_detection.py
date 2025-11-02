@@ -168,7 +168,6 @@ class ObjectDetection(Node):
 
             if filtered_cloud.size == 0:
                 self.get_logger().warning("Filtered cloud is empty")
-                return None
 
             return filtered_cloud
 
