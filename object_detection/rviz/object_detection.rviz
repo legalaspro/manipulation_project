@@ -5,7 +5,6 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /Status1
-        - /ObjectMarkerArray1/Status1
       Splitter Ratio: 0.5882353186607361
     Tree Height: 553
   - Class: rviz_common/Selection
@@ -25,7 +24,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: PointCloud2
+    SyncSource: ""
 Visualization Manager:
   Class: ""
   Displays:
@@ -356,10 +355,10 @@ Visualization Manager:
                                     {}
                           ft_frame:
                             {}
-            wrist_rgbd_camera_depth_optical_frame:
-              {}
             wrist_rgbd_camera_link:
               wrist_rgbd_camera_depth_frame:
+                wrist_rgbd_camera_depth_optical_frame:
+                  {}
                 wrist_rgbd_camera_fisheye_frame:
                   wrist_rgbd_camera_fisheye_optical_frame:
                     {}
@@ -395,6 +394,172 @@ Visualization Manager:
         Reliability Policy: Reliable
         Value: /object_markers
       Value: true
+    - Class: moveit_rviz_plugin/PlanningScene
+      Enabled: false
+      Move Group Namespace: ""
+      Name: PlanningScene
+      Planning Scene Topic: /monitored_planning_scene
+      Robot Description: robot_description
+      Scene Geometry:
+        Scene Alpha: 0.8999999761581421
+        Scene Color: 50; 230; 50
+        Scene Display Time: 0.009999999776482582
+        Show Scene Geometry: true
+        Voxel Coloring: Z-Axis
+        Voxel Rendering: Occupied Voxels
+      Scene Robot:
+        Attached Body Color: 150; 50; 150
+        Links:
+          All Links Enabled: true
+          Expand Joint Details: false
+          Expand Link Details: false
+          Expand Tree: false
+          Link Tree Style: Links in Alphabetic Order
+          base:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          base_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          base_link_inertia:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          flange:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          forearm_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          ft_frame:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          robotiq_85_base_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          robotiq_85_left_finger_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          robotiq_85_left_finger_tip_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          robotiq_85_left_inner_knuckle_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          robotiq_85_left_knuckle_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          robotiq_85_right_finger_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          robotiq_85_right_finger_tip_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          robotiq_85_right_inner_knuckle_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          robotiq_85_right_knuckle_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          shoulder_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          tool0:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          upper_arm_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          world:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          wrist_1_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          wrist_2_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          wrist_3_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          wrist_rgbd_camera_depth_frame:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          wrist_rgbd_camera_depth_optical_frame:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          wrist_rgbd_camera_fisheye_frame:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          wrist_rgbd_camera_fisheye_optical_frame:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          wrist_rgbd_camera_left_ir_frame:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          wrist_rgbd_camera_left_ir_optical_frame:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          wrist_rgbd_camera_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          wrist_rgbd_camera_right_ir_frame:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          wrist_rgbd_camera_right_ir_optical_frame:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+        Robot Alpha: 1
+        Show Robot Collision: false
+        Show Robot Visual: false
+      Value: false
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -456,10 +621,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.46039777994155884
+      Pitch: 0.6053977608680725
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 0.5354035496711731
+      Yaw: 5.663589954376221
     Saved: ~
 Window Geometry:
   Displays:

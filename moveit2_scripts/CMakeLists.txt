@@ -17,6 +17,7 @@ find_package(geometric_shapes REQUIRED)
 find_package(control_msgs REQUIRED)
 find_package(moveit_msgs REQUIRED)
 find_package(detection_interfaces REQUIRED)
+find_package(moveit_visual_tools REQUIRED)
 
 
 
@@ -25,6 +26,8 @@ add_executable(pick_and_place
     src/pick_and_place.cpp)
 add_executable(pick_and_place_perception
 	src/pick_and_place_perception.cpp)
+add_executable(add_ur3_sim_scene
+	src/add_ur3_sim_scene.cpp)
 
 target_include_directories(pick_and_place
     PUBLIC include)
@@ -49,11 +52,16 @@ ament_target_dependencies(pick_and_place_perception
     moveit_ros_planning
     control_msgs
 	detection_interfaces)
+ament_target_dependencies(add_ur3_sim_scene
+	ament_cmake
+	rclcpp
+	moveit_ros_planning_interface)
 
 # Install the executable
 install(TARGETS 
     pick_and_place
 	pick_and_place_perception
+	add_ur3_sim_scene
     DESTINATION lib/${PROJECT_NAME}
 )
 
