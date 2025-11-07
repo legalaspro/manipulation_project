@@ -30,6 +30,8 @@ add_executable(pick_and_place_perception
 	src/pick_and_place_perception.cpp)
 add_executable(add_ur3_sim_scene
 	src/add_ur3_sim_scene.cpp)
+add_executable(move_to_pose
+	src/move_to_pose.cpp)
 
 target_include_directories(pick_and_place
     PUBLIC include)
@@ -67,13 +69,23 @@ ament_target_dependencies(add_ur3_sim_scene
 	ament_cmake
 	rclcpp
 	moveit_ros_planning_interface)
+ament_target_dependencies(move_to_pose
+	ament_cmake
+	rclcpp
+	rclcpp_action
+	moveit_core
+	moveit_ros_planning_interface
+	interactive_markers
+	moveit_ros_planning
+	control_msgs)
 
 # Install the executable
-install(TARGETS 
+install(TARGETS
     pick_and_place
 	pick_and_place_real
 	pick_and_place_perception
 	add_ur3_sim_scene
+	move_to_pose
     DESTINATION lib/${PROJECT_NAME}
 )
 
