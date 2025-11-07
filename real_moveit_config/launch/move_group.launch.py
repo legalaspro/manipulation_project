@@ -15,8 +15,8 @@ def generate_launch_description():
         output="screen",
         parameters=[
             moveit_config.to_dict(),
-            {"trajectory_execution.allowed_execution_duration_scaling": 5.0,}, # From 2.0; allows 5x planned duration
-            {"trajectory_execution.allowed_goal_duration_margin": 2.0},       # Extra time after planned end
+            {"trajectory_execution.allowed_execution_duration_scaling": 10.0,}, # From 2.0; allows 5x planned duration
+            {"trajectory_execution.allowed_goal_duration_margin": 10.0,},       # Extra time after planned end
             {"publish_robot_description_semantic": True},
             {"use_sim_time": False},
         ],
