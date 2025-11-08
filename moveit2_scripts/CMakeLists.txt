@@ -36,6 +36,8 @@ add_executable(cartesian_move
 	src/cartesian_move.cpp)
 add_executable(gripper_control
 	src/gripper_control.cpp)
+add_executable(move_joints
+	src/move_joints.cpp)
 
 target_include_directories(pick_and_place
     PUBLIC include)
@@ -100,6 +102,15 @@ ament_target_dependencies(gripper_control
 	interactive_markers
 	moveit_ros_planning
 	control_msgs)
+ament_target_dependencies(move_joints
+	ament_cmake
+	rclcpp
+	rclcpp_action
+	moveit_core
+	moveit_ros_planning_interface
+	interactive_markers
+	moveit_ros_planning
+	control_msgs)
 
 
 # Install the executable
@@ -111,6 +122,7 @@ install(TARGETS
 	move_to_pose
 	cartesian_move
 	gripper_control
+	move_joints
     DESTINATION lib/${PROJECT_NAME}
 )
 
