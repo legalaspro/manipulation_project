@@ -15,6 +15,11 @@ static const rclcpp::Logger LOGGER = rclcpp::get_logger("move_group_node");
 static const std::string PLANNING_GROUP_ROBOT = "ur_manipulator";
 static const std::string PLANNING_GROUP_GRIPPER = "gripper";
 
+static constexpr double APPROACH_Z_DELTA = -0.06; // straight down 6 cm
+static constexpr double RETREAT_Z_DELTA = +0.06;  // straight up 6 cm
+static constexpr double GRIPPER_JOINT_ANGLE =
+    +0.77; // enough to close the gripper and catch real object
+
 class PickAndPlace {
 public:
   PickAndPlace(rclcpp::Node::SharedPtr base_node_) : base_node_(base_node_) {
@@ -88,7 +93,7 @@ public:
     RCLCPP_INFO(LOGGER, "Going to Pregrasp Position...");
     // setup the goal pose target
     RCLCPP_INFO(LOGGER, "Preparing Goal Pose Trajectory...");
-    setup_goal_pose_target(+0.343, +0.132, +0.236, -1.000, +0.000, +0.000,
+    setup_goal_pose_target(+0.343, +0.132, +0.256, -1.000, +0.000, +0.000,
                            +0.000);
     RCLCPP_INFO(LOGGER, "Planning Goal Pose Trajectory...");
     plan_trajectory_kinematics();
@@ -107,17 +112,16 @@ public:
 
     RCLCPP_INFO(LOGGER, "Approaching...");
     RCLCPP_INFO(LOGGER, "Preparing Cartesian Trajectory...");
-    setup_waypoints_target(+0.000, +0.000, -0.070);
+    setup_waypoints_target(+0.000, +0.000, APPROACH_Z_DELTA);
     RCLCPP_INFO(LOGGER, "Planning Cartesian Trajectory...");
     plan_trajectory_cartesian();
     RCLCPP_INFO(LOGGER, "Executing Cartesian Trajectory...");
     execute_trajectory_cartesian();
-    return;
 
     // close the gripper
     RCLCPP_INFO(LOGGER, "Closing Gripper...");
     RCLCPP_INFO(LOGGER, "Preparing Gripper Value...");
-    setup_joint_value_gripper(+0.6458);
+    setup_joint_value_gripper(GRIPPER_JOINT_ANGLE);
     RCLCPP_INFO(LOGGER, "Planning Gripper Action...");
     plan_trajectory_gripper();
     RCLCPP_INFO(LOGGER, "Executing Gripper Action...");
@@ -129,7 +133,7 @@ public:
 
     RCLCPP_INFO(LOGGER, "Retreating...");
     RCLCPP_INFO(LOGGER, "Preparing Cartesian Trajectory...");
-    setup_waypoints_target(+0.000, +0.000, +0.070);
+    setup_waypoints_target(+0.000, +0.000, RETREAT_Z_DELTA);
     RCLCPP_INFO(LOGGER, "Planning Cartesian Trajectory...");
     plan_trajectory_cartesian();
     RCLCPP_INFO(LOGGER, "Executing Cartesian Trajectory...");

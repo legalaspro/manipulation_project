@@ -22,6 +22,14 @@ def generate_launch_description():
         ],
     )
 
+   # Include the scene-adding node
+    add_scene_node = Node(
+        package='moveit2_scripts', 
+        executable='add_ur3_sim_scene',
+        name='add_ur3_sim_scene',
+        output='screen',
+    )
+
     return LaunchDescription(
-        [move_group_node]
+        [move_group_node, add_scene_node]
     )
