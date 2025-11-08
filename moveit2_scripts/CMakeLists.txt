@@ -32,6 +32,10 @@ add_executable(add_ur3_sim_scene
 	src/add_ur3_sim_scene.cpp)
 add_executable(move_to_pose
 	src/move_to_pose.cpp)
+add_executable(cartesian_move
+	src/cartesian_move.cpp)
+add_executable(gripper_control
+	src/gripper_control.cpp)
 
 target_include_directories(pick_and_place
     PUBLIC include)
@@ -78,6 +82,25 @@ ament_target_dependencies(move_to_pose
 	interactive_markers
 	moveit_ros_planning
 	control_msgs)
+ament_target_dependencies(cartesian_move
+	ament_cmake
+	rclcpp
+	rclcpp_action
+	moveit_core
+	moveit_ros_planning_interface
+	interactive_markers
+	moveit_ros_planning
+	control_msgs)
+ament_target_dependencies(gripper_control
+	ament_cmake
+	rclcpp
+	rclcpp_action
+	moveit_core
+	moveit_ros_planning_interface
+	interactive_markers
+	moveit_ros_planning
+	control_msgs)
+
 
 # Install the executable
 install(TARGETS
@@ -86,6 +109,8 @@ install(TARGETS
 	pick_and_place_perception
 	add_ur3_sim_scene
 	move_to_pose
+	cartesian_move
+	gripper_control
     DESTINATION lib/${PROJECT_NAME}
 )
 
