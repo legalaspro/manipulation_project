@@ -192,7 +192,11 @@ int main(int argc, char **argv) {
   std::shared_ptr<rclcpp::Node> base_node =
       std::make_shared<rclcpp::Node>("cartesian_move");
 
-  // Initialize CartesianMove - constructor will set parameter defaults
+  // Declare parameters directly in main
+  base_node->declare_parameter<double>("x", 0.25);
+  base_node->declare_parameter<double>("y", 0.25);
+  base_node->declare_parameter<double>("z", 0.25);
+
   // from current position for any missing parameters
   CartesianMove cartesian_move(base_node);
 
