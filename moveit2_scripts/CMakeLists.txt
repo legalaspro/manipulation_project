@@ -28,6 +28,8 @@ add_executable(pick_and_place_real
     src/pick_and_place_real.cpp)
 add_executable(pick_and_place_perception
 	src/pick_and_place_perception.cpp)
+add_executable(pick_and_place_perception_real
+	src/pick_and_place_perception_real.cpp)
 add_executable(add_ur3_sim_scene
 	src/add_ur3_sim_scene.cpp)
 add_executable(move_to_pose
@@ -62,6 +64,16 @@ ament_target_dependencies(pick_and_place_real
     moveit_ros_planning
     control_msgs)
 ament_target_dependencies(pick_and_place_perception
+    ament_cmake
+    rclcpp
+    rclcpp_action
+    moveit_core
+    moveit_ros_planning_interface
+    interactive_markers
+    moveit_ros_planning
+    control_msgs
+	detection_interfaces)
+ament_target_dependencies(pick_and_place_perception_real
     ament_cmake
     rclcpp
     rclcpp_action
@@ -118,6 +130,7 @@ install(TARGETS
     pick_and_place
 	pick_and_place_real
 	pick_and_place_perception
+	pick_and_place_perception_real
 	add_ur3_sim_scene
 	move_to_pose
 	cartesian_move

@@ -17,9 +17,9 @@ static const std::string PLANNING_GROUP_ROBOT = "ur_manipulator";
 static const std::string PLANNING_GROUP_GRIPPER = "gripper";
 
 // offsets / “magic numbers”:
-static constexpr double PREGRASP_Z_OFFSET = 0.20; // 20 cm above detected object
-static constexpr double APPROACH_Z_DELTA = -0.085; // straight down 8 cm
-static constexpr double RETREAT_Z_DELTA = +0.085;  // straight up 8 cm
+static constexpr double PREGRASP_Z_OFFSET = 0.25; // 20 cm above detected object
+static constexpr double APPROACH_Z_DELTA = -0.05; // straight down 5 cm
+static constexpr double RETREAT_Z_DELTA = +0.05;  // straight up 5 cm
 static constexpr double GRIPPER_UPPER_LIMIT =
     0.804; // Upper limit set in the joint configuration
 static constexpr double GRIPPER_MAX_OPEN_WIDTH =
@@ -113,8 +113,8 @@ public:
 
     DetectedObject obj = object_future_.get(); // safe copy
 
-    const double pre_x = obj.position.x + obj.height * 0.5;
-    const double pre_y = obj.position.y - obj.width * 0.5;
+    const double pre_x = obj.position.x;
+    const double pre_y = obj.position.y;
     const double pre_z =
         obj.position.z + obj.thickness * 0.5 + PREGRASP_Z_OFFSET;
     const double target_close_rad = GRIPPER_UPPER_LIMIT *
@@ -135,7 +135,7 @@ public:
     setup_named_pose_gripper("open");
     plan_trajectory_gripper();
     execute_trajectory_gripper();
-
+    return;
     // 3. approach straight down
     RCLCPP_INFO(LOGGER, "Approaching object...");
     setup_waypoints_target(+0.000, +0.000, APPROACH_Z_DELTA);
