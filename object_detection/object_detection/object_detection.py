@@ -12,9 +12,17 @@ from typing import List, Tuple, Union
 class ObjectDetection(Node):
     def __init__(self) -> None:
         super().__init__('object_detection_node')
+
+        # Declare parameters with defaults
+        self.declare_parameter('pointcloud_topic', '/wrist_rgbd_depth_sensor/points')
+
+        # Get parameters
+        pointcloud_topic = self.get_parameter('pointcloud_topic').value
+
+
         self.pc_sub = self.create_subscription(
             PointCloud2,
-            '/wrist_rgbd_depth_sensor/points',
+            pointcloud_topic,
             self.callback,
             10)
         self.surface_pub = self.create_publisher(
