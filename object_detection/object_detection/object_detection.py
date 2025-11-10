@@ -15,10 +15,13 @@ class ObjectDetection(Node):
 
         # Declare parameters with defaults
         self.declare_parameter('pointcloud_topic', '/wrist_rgbd_depth_sensor/points')
+        self.declare_parameter('plane_min_y', -0.1)
+        self.declare_parameter('objects_min_y', -0.1)
 
         # Get parameters
         pointcloud_topic = self.get_parameter('pointcloud_topic').value
-
+        self.plane_min_y = self.get_parameter('plane_min_y').value
+        self.objects_min_y = self.get_parameter('objects_min_y').value
 
         self.pc_sub = self.create_subscription(
             PointCloud2,
@@ -56,9 +59,9 @@ class ObjectDetection(Node):
                 self.compute_bounds(cloud)
 
             # Filtered cloud for surface detection
-            filtered_cloud_plane = self.filter_cloud(cloud, min_y=-0.1, min_height=-0.05, max_height=0.01)
+            filtered_cloud_plane = self.filter_cloud(cloud, min_y=self.plane_min_y, min_height=-0.05, max_height=0.01)
             # Filtered cloud for object detection
-            filtered_cloud_objects = self.filter_cloud(cloud, min_y=-0.1, min_height=0.0, max_height=0.1)
+            filtered_cloud_objects = self.filter_cloud(cloud, min_y=-self.objects_min_y, min_height=0.0, max_height=0.1)
 
             # Segmentation: Plane extraction
             plane_indices, plane_coefficients, plane_cloud = self.extract_plane(filtered_cloud_plane)

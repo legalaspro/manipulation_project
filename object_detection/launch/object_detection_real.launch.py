@@ -4,7 +4,7 @@ Object Detection
 RViz2
 
 Usage:
-  ros2 launch object_detection object_detection.launch.py
+  ros2 launch object_detection object_detection_real.launch.py
 """
 
 from launch import LaunchDescription
@@ -28,23 +28,24 @@ def generate_launch_description():
 
     return LaunchDescription([    
         log_rviz_config,
-        # Node(
-        #     package='object_detection',
-        #     executable='static_transform_publisher',
-        #     name='static_transform_publisher',
-        #     output='screen',
-        #     parameters=[{
-        #         'header_frame_id': 'base_link',  # Or your custom value
-        #         'child_frame_id': 'wrist_rgbd_camera_depth_optical_frame',
-        #         'translation_x': 0.338,
-        #         'translation_y': 0.45,
-        #         'translation_z': 0.1,
-        #         'rotation_x': 0.0,
-        #         'rotation_y': 0.866,
-        #         'rotation_z': -0.5,
-        #         'rotation_w': 0.0
-        #     }]
-        # ),
+        Node(
+            package='object_detection',
+            executable='static_transform_publisher',
+            name='static_transform_publisher',
+            output='screen',
+            parameters=[{
+                'header_frame_id': 'base_link', 
+                'child_frame_id': 'camera_depth_optical_frame',
+                'translation_x': 0.5,
+                'translation_y': 0.605,
+                'translation_z': 0.1,
+                'rotation_x': -0.0,
+                'rotation_y': 0.766,
+                'rotation_z': -0.643,
+                'rotation_w': 0.0
+            }]
+        ),
+
 
         Node(
             package='object_detection',
@@ -54,10 +55,12 @@ def generate_launch_description():
             emulate_tty=True,
             parameters=[{
                 'pointcloud_topic': '/camera/depth/color/points',
+                'plane_min_y': 0.0,
+                'objects_min_y': 0.0
             }]
         ),
         
-         TimerAction(
+        TimerAction(
             period=2.0,
             actions=[
                 Node(
