@@ -17,13 +17,15 @@ static const std::string PLANNING_GROUP_ROBOT = "ur_manipulator";
 static const std::string PLANNING_GROUP_GRIPPER = "gripper";
 
 // offsets / “magic numbers”:
-static constexpr double PREGRASP_Z_OFFSET = 0.25; // 20 cm above detected object
+static constexpr double PREGRASP_Z_OFFSET = 0.2;  // 20 cm above detected object
 static constexpr double APPROACH_Z_DELTA = -0.05; // straight down 5 cm
 static constexpr double RETREAT_Z_DELTA = +0.05;  // straight up 5 cm
 static constexpr double GRIPPER_UPPER_LIMIT =
     0.804; // Upper limit set in the joint configuration
 static constexpr double GRIPPER_MAX_OPEN_WIDTH =
     0.085; // Robotiq 85 gripper specs
+// default working value for the gripper.
+static constexpr double GRIPPER_JOINT_ANGLE = +0.77;
 
 class PickAndPlacePerception {
 public:
@@ -113,7 +115,7 @@ public:
 
     DetectedObject obj = object_future_.get(); // safe copy
 
-    const double pre_x = obj.position.x;
+    const double pre_x = obj.position.x + obj.height * 0.5;
     const double pre_y = obj.position.y;
     const double pre_z =
         obj.position.z + obj.thickness * 0.5 + PREGRASP_Z_OFFSET;
@@ -125,7 +127,11 @@ public:
     // 1. go to pregrasp
     RCLCPP_INFO(LOGGER, "Going to Pregrasp Position (%.3f, %.3f, %.3f)...",
                 pre_x, pre_y, pre_z);
-    // return;
+    RCLCPP_INFO(LOGGER,
+                "Close gripper target calculation %.3f, but we use default "
+                "value %.3f...",
+                target_close_rad, GRIPPER_JOINT_ANGLE);
+
     setup_goal_pose_target(pre_x, pre_y, pre_z, -1.000, +0.000, +0.000, +0.000);
     plan_trajectory_kinematics();
     execute_trajectory_kinematics();
@@ -135,7 +141,7 @@ public:
     setup_named_pose_gripper("open");
     plan_trajectory_gripper();
     execute_trajectory_gripper();
-    return;
+
     // 3. approach straight down
     RCLCPP_INFO(LOGGER, "Approaching object...");
     setup_waypoints_target(+0.000, +0.000, APPROACH_Z_DELTA);
@@ -143,8 +149,8 @@ public:
     execute_trajectory_cartesian();
 
     // 4. close the gripper
-    RCLCPP_INFO(LOGGER, "Closing Gripper... (target %f)", target_close_rad);
-    setup_joint_value_gripper(target_close_rad);
+    RCLCPP_INFO(LOGGER, "Closing Gripper... (target %f)", GRIPPER_JOINT_ANGLE);
+    setup_joint_value_gripper(GRIPPER_JOINT_ANGLE);
     plan_trajectory_gripper();
     execute_trajectory_gripper();
 
