@@ -1,6 +1,8 @@
 import rclpy
 from geometry_msgs.msg import TransformStamped
 import tf2_ros
+from rclpy.time import Time
+
 
 class StaticTransformPublisher:
     def __init__(self) -> None:
@@ -32,7 +34,7 @@ class StaticTransformPublisher:
         rotation_w = self.node.get_parameter('rotation_w').value
 
         static_transform_stamped = TransformStamped()
-        static_transform_stamped.header.stamp = self.node.get_clock().now().to_msg()
+        static_transform_stamped.header.stamp = Time().to_msg() #self.node.get_clock().now().to_msg()
         static_transform_stamped.header.frame_id = header_frame_id
         static_transform_stamped.child_frame_id = child_frame_id
         
